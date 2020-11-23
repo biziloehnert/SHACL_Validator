@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -30,6 +31,25 @@ public class DataGraph {
 			
 		    triples.add(new Triple(subject, predicate, object));
 		}
+	}
+	
+	public Graph getDataGraph() {
+		return model.getGraph();
+	}
+	
+	public boolean containsAll(Model model) {
+		return this.model.containsAll(model);
+	}
+	
+	public List<String> toASPFacts() {
+		List<String> facts = new ArrayList<>();
+		
+		for (Triple triple : triples) {
+			if(triple.toFact() != null)
+				facts.add(triple.toFact());
+		}
+		
+		return facts;
 	}
 	
 	public String toString() {
