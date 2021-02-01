@@ -1,24 +1,10 @@
-package Validator;
+package validator;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import org.apache.jena.graph.GetTriple;
-import org.apache.jena.graph.Graph;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.shacl.ShaclValidator;
-import org.apache.jena.shacl.Shapes;
-import org.apache.jena.shacl.ValidationReport;
-import org.apache.jena.shacl.lib.ShLib;
-import org.apache.jena.shacl.sys.ValidationGraph;
-import org.apache.jena.shacl.validation.ReportEntry;
-
-import Model.DataGraph;
-import Model.Options;
-import Model.ShapesGraph;
+import model.MagicShacl;
+import model.ShapeName;
 
 public class main {
 
@@ -27,9 +13,17 @@ public class main {
             System.out.println("A filename is expected as argument! ");
             return;
         }
+		 
+		List<ShapeName> targets = new ArrayList<>();
+		ShapeName t = new ShapeName("NotExampleShape");
+		targets.add(t);
 		
-		Validator validator = new Validator(args[0], args[0], new ArrayList<>());
-		validator.validate();
+		MagicShacl magic = new MagicShacl(args[0],targets);
+		System.out.println(magic.toString("abstract"));
+		
+		//Validator validator = new Validator(args[0], args[0], new ArrayList<>());
+		//validator.validate();
+		
 		
 		
 		/*DataGraph dataGraph = new DataGraph(args[0]);

@@ -1,16 +1,16 @@
-package Model;
+package model;
 
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
-public class Triple {
+public class DataTriple {
 	private Resource subject;
 	private Property predicate;
 	private RDFNode object;
 	
-	public Triple(Resource subject, Property predicate, RDFNode object) {
+	public DataTriple(Resource subject, Property predicate, RDFNode object) {
 		this.subject = subject;
 		this.predicate = predicate;
 		this.object = object;

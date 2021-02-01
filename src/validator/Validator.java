@@ -1,4 +1,4 @@
-package Validator;
+package validator;
 
 import java.io.StringWriter;
 import java.util.List;
@@ -7,9 +7,10 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.ValidationReport;
-import Model.DataGraph;
-import Model.Options;
-import Model.ShapesGraph;
+
+import model.DataGraph;
+import model.Options;
+import model.ShapesGraph;
 
 public class Validator {
 	private DataGraph dataGraph; 
@@ -22,7 +23,14 @@ public class Validator {
 		shapesGraph = new ShapesGraph(shapesPath);
 		this.options = options;
 		
-		List<String> facts = dataGraph.toASPFacts();
+		//for (String s : shapesGraph.toAbstractSyntax())
+			//System.out.println(s);
+		
+		/*List<String> facts = dataGraph.toASPFacts();
+		
+		for (String string : facts) {
+			System.out.println(string);
+		}*/		
 	}
 	
 	public ValidationReport validate() {

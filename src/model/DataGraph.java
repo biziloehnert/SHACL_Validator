@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.apache.jena.rdf.model.StmtIterator;
 
 public class DataGraph {
 	private Model model;
-	private List<Triple> triples;
+	private List<DataTriple> triples;
 	
 	public DataGraph(String pathname) {
 		model = ModelFactory.createDefaultModel();
@@ -29,7 +29,7 @@ public class DataGraph {
 		    Property  predicate = stmt.getPredicate();   // get the predicate
 		    RDFNode   object    = stmt.getObject();      // get the object
 			
-		    triples.add(new Triple(subject, predicate, object));
+		    triples.add(new DataTriple(subject, predicate, object));
 		}
 	}
 	
@@ -37,14 +37,14 @@ public class DataGraph {
 		return model.getGraph();
 	}
 	
-	public boolean containsAll(Model model) {
-		return this.model.containsAll(model);
-	}
+//	public boolean containsAll(Model model) {
+//		return this.model.containsAll(model);
+//	}
 	
 	public List<String> toASPFacts() {
 		List<String> facts = new ArrayList<>();
 		
-		for (Triple triple : triples) {
+		for (DataTriple triple : triples) {
 			if(triple.toFact() != null)
 				facts.add(triple.toFact());
 		}
@@ -55,7 +55,7 @@ public class DataGraph {
 	public String toString() {
 		String dataGraph = "";
 		
-		for (Triple triple : triples)
+		for (DataTriple triple : triples)
 			dataGraph += triple.toString() + "\n";
 		
 		return dataGraph;
