@@ -1,35 +1,31 @@
 package Validator;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import org.apache.jena.graph.GetTriple;
-import org.apache.jena.graph.Graph;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.shacl.ShaclValidator;
-import org.apache.jena.shacl.Shapes;
-import org.apache.jena.shacl.ValidationReport;
-import org.apache.jena.shacl.lib.ShLib;
-import org.apache.jena.shacl.sys.ValidationGraph;
-import org.apache.jena.shacl.validation.ReportEntry;
-
-import Model.DataGraph;
-import Model.Options;
-import Model.ShapesGraph;
 
 public class main {
 
 	public static void main(String[] args) {
 		if (args.length < 1) {
-            System.out.println("A filename is expected as argument! ");
+            System.out.println("A filename (datagraph) is expected as argument! ");
             return;
-        }
+        } 
+		if (args.length < 2) {
+            System.out.println("A filename (shapegraph) is expected as argument! ");
+            return;
+        } 
 		
-		Validator validator = new Validator(args[0], args[0], new ArrayList<>());
+		long startTime = System.currentTimeMillis();
+		
+		Validator validator = new Validator(args[0], args[1], new ArrayList<>());
 		validator.validate();
+		
+		long endTime = System.currentTimeMillis();
+		long sec = (endTime - startTime)/1000;
+		long millis = (endTime - startTime)%1000;
+		System.out.println(sec + "s " + millis + "ms");
+		
+		validator.toFile();
 		
 		
 		/*DataGraph dataGraph = new DataGraph(args[0]);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.jena.graph.Graph;
+import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -11,6 +12,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.RDFDataMgr;
 
 public class DataGraph {
 	private Model model;
@@ -18,11 +20,11 @@ public class DataGraph {
 	
 	public DataGraph(String pathname) {
 		model = ModelFactory.createDefaultModel();
-		model.read(pathname);
+		Dataset dataset = RDFDataMgr.loadDataset(pathname) ;
+		model = dataset.getUnionModel();
+		//triples = new ArrayList<>();
 		
-		triples = new ArrayList<>();
-		
-		StmtIterator iter = model.listStatements();
+		/*StmtIterator iter = model.listStatements();
 		while (iter.hasNext()) {
 			Statement stmt      = iter.nextStatement();  // get next statement
 			Resource  subject   = stmt.getSubject();     // get the subject
@@ -30,7 +32,7 @@ public class DataGraph {
 		    RDFNode   object    = stmt.getObject();      // get the object
 			
 		    triples.add(new Triple(subject, predicate, object));
-		}
+		}*/
 	}
 	
 	public Graph getDataGraph() {
